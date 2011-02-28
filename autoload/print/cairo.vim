@@ -77,11 +77,11 @@ endfunction
 
 function! s:highlight(attr)
   " Normal's attribute does not effect.
-  return printf("HIGHLIGHT %s #%02x%02x%02x #%02x%02x%02x #%02x%02x%02x %d %d %d %d",
+  return printf("HIGHLIGHT %s %s %s %s %d %d %d %d",
         \ s:string(a:attr.name),
-        \ a:attr.fg[0], a:attr.fg[1], a:attr.fg[2],
-        \ a:attr.bg[0], a:attr.bg[1], a:attr.bg[2],
-        \ a:attr.sp[0], a:attr.sp[1], a:attr.sp[2],
+        \ s:color(a:attr.fg),
+        \ s:color(a:attr.bg),
+        \ s:color(a:attr.sp),
         \ (a:attr.transname == 'Normal' ? 0 : a:attr.bold),
         \ (a:attr.transname == 'Normal' ? 0 : a:attr.italic),
         \ (a:attr.transname == 'Normal' ? 0 : a:attr.underline),
@@ -98,5 +98,9 @@ endfunction
 
 function! s:string(s)
   return '"' . escape(a:s, '"\') . '"'
+endfunction
+
+function! s:color(color)
+  return printf('#%02x%02x%02x', a:color[0], a:color[1], a:color[2])
 endfunction
 
