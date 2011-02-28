@@ -54,12 +54,13 @@ function s:syntax.synline(lnum)
     elseif c =~ '[[:cntrl:]]'
       let attr = self.synattr(hlID('SpecialKey'))
       let str = strtrans(c)
-    elseif c !~ '[[:print:]]'
-      let attr = self.synattr(hlID('SpecialKey'))
-      let str = strtrans(c)
     else
-      let attr = self.synattr(synID(a:lnum, col, 1))
-      let str = c
+      let str = strtrans(c)
+      if c == str
+        let attr = self.synattr(synID(a:lnum, col, 1))
+      else
+        let attr = self.synattr(hlID('SpecialKey'))
+      endif
     endif
     if !empty(res) && res[-1][1].id == attr.id
       let res[-1][0] .= str
