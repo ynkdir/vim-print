@@ -112,6 +112,8 @@ endfunction
 function s:syntax.syncolor(id, what, default)
   let c = synIDattr(a:id, a:what, self.mode)
   if c =~ '^\d'
+    " FIXME: how to select?
+    "let c = self.cterm_color8[c]
     let c = self.cterm_color[c]
   endif
   if c != '-1' && c != ''
@@ -121,6 +123,8 @@ function s:syntax.syncolor(id, what, default)
 endfunction
 
 " copied from runtime/syntax/2html.vim
+let s:syntax.cterm_color8 = {0: "#808080", 1: "#ff6060", 2: "#00ff00", 3: "#ffff00", 4: "#8080ff", 5: "#ff40ff", 6: "#00ffff", 7: "#ffffff"}
+
 let s:syntax.cterm_color = {0: "#000000", 1: "#c00000", 2: "#008000", 3: "#804000", 4: "#0000c0", 5: "#c000c0", 6: "#008080", 7: "#c0c0c0", 8: "#808080", 9: "#ff6060", 10: "#00ff00", 11: "#ffff00", 12: "#8080ff", 13: "#ff40ff", 14: "#00ffff", 15: "#ffffff"}
 
 " Colors for 88 and 256 come from xterm.
