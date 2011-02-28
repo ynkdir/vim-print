@@ -660,8 +660,6 @@ static void
 print()
 {
     char *command;
-    struct Highlight hi;
-    char *text;
 
     for (;;) {
         skip_space();
