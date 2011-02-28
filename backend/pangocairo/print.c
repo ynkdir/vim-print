@@ -510,12 +510,8 @@ print_text(const char *text)
                 - options.margin_right - pc.numberwidth) * PANGO_SCALE);
     pango_layout_set_wrap(layout, PANGO_WRAP_CHAR);
 
-    i = 0;
-    for (;;) {
-        line = pango_layout_get_line(layout, i);
-        if (line == NULL) {
-            break;
-        }
+    for (i = 0; i < pango_layout_get_line_count(layout); ++i) {
+        line = pango_layout_get_line_readonly(layout, i);
         if (i != 0) {
             pc.y += pc.font_height;
         }
@@ -525,7 +521,6 @@ print_text(const char *text)
         }
         cairo_move_to(cr, pc.x, pc.y + pc.font_height - pc.font_descent);
         pango_cairo_show_layout_line(cr, line);
-        i += 1;
     }
 
     pango_font_description_free(desc);
