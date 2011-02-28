@@ -84,7 +84,9 @@ function! s:markup(text, attr)
   let text = substitute(a:text, '<\|>\|&', '\=s:entity[submatch(0)]', 'g')
   let attrs = ''
   let attrs .= printf(' fgcolor="%s"', s:color(a:attr.fg))
-  let attrs .= printf(' bgcolor="%s"', s:color(a:attr.bg))
+  if !s:is_white(a:attr.bg)
+    let attrs .= printf(' bgcolor="%s"', s:color(a:attr.bg))
+  endif
   if a:attr.transname != 'Normal'
     if a:attr.bold
       let attrs .= ' font_weight="bold"'
@@ -97,5 +99,9 @@ function! s:markup(text, attr)
     endif
   endif
   return printf('<span %s>%s</span>', attrs, text)
+endfunction
+
+function! s:is_white(color)
+  return a:color[0] == 255 && a:color[1] == 255 && a:color[2] == 255
 endfunction
 
