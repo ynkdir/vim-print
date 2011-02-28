@@ -333,7 +333,7 @@ command_start()
     width = width / 2;
 
     pc.font_height = height;
-    pc.font_descent = baseline;
+    pc.font_descent = height - baseline;
 
     if (options.number_width > 0) {
         pc.numberwidth = options.number_width * width + LINENR_MARGIN;
