@@ -1,9 +1,9 @@
 
-CFLAGS=-I/usr/include/cairo -I/usr/include/freetype2
-LDFLAGS=-lcairo
+CFLAGS=$(shell pkg-config cairo --cflags)
+LDFLAGS=$(shell pkg-config cairo --libs)
 
 all: print
 
 print: print.c
-	cc -o $@ $(CFLAGS) print.c $(LDFLAGS)
+	cc -o $@ $(CFLAGS) $^ $(LDFLAGS)
 
