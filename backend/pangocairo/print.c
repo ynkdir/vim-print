@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <locale.h>
 
 #include <cairo.h>
 #include <cairo-ps.h>
@@ -566,9 +567,10 @@ print()
 int
 main(int argc, char **argv)
 {
-
     infile = argv[1];
     outfile = argv[2];
+
+    setlocale(LC_ALL, "");
 
     in = fopen(infile, "r");
 
