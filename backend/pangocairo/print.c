@@ -165,7 +165,7 @@ read_command()
     char buf[256];
     int n;
 
-    n = fscanf(in, "%s", (char *)&buf);
+    n = fscanf(in, "%s", buf);
     if (n != 1) {
         error("read_command error");
     }
