@@ -330,8 +330,21 @@ command_start()
     pc.pagenum = 0;
     pc.linenum = 0;
 
-    textsize("MW", &width, &height, &baseline);
+    textsize("MW", &width, NULL, NULL);
     width = width / 2;
+
+    /* FIXME: How to calculate line height?
+     * Text extents and font metrics depend on text and font and language. */
+    if (0) {
+        textsize("MW", NULL, &height, &baseline);
+    } else {
+        /* Calculate line height with script of current locale and C locale. */
+        char buf[512] = {0};
+        strcat(buf, pango_language_get_sample_string(NULL));
+        strcat(buf, pango_language_get_sample_string(
+                    pango_language_from_string("c")));
+        textsize(buf, NULL, &height, &baseline);
+    }
 
     pc.font_height = height;
     pc.font_descent = height - baseline;
